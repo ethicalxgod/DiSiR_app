@@ -126,6 +126,7 @@ def calculate_celltype_average_expressions(expressions_scRNA,
     number_expression_df = pd.DataFrame(number_expression, index = gene_names, columns = unique_cell_type_labels)
     totalcell_df = pd.DataFrame(totalcell, index = gene_names, columns = unique_cell_type_labels)   
     cell_type_specific_expressions_df = pd.DataFrame(average_expression/np.max(average_expression), index = gene_names, columns = unique_cell_type_labels)
+    st.table(average_expression_df)
     
     return average_expression_df, number_expression_df, totalcell_df, cell_type_specific_expressions_df, unique_cell_type_labels, cell_type_numbers
 
