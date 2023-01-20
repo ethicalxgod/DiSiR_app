@@ -73,7 +73,7 @@ def load_mtx_data(uploaded_mtx,
     final_array = []
     for ix in gene_index:
         final_array.append(gene_dict[ix] + [0] * (len(metadata)-len(gene_dict[ix])))
-    final_array = np.log2(np.array(final_array))
+    final_array = np.log2(np.array(final_array)+1)
     return final_array
 
 
@@ -126,7 +126,6 @@ def calculate_celltype_average_expressions(expressions_scRNA,
     number_expression_df = pd.DataFrame(number_expression, index = gene_names, columns = unique_cell_type_labels)
     totalcell_df = pd.DataFrame(totalcell, index = gene_names, columns = unique_cell_type_labels)   
     cell_type_specific_expressions_df = pd.DataFrame(average_expression/np.max(average_expression), index = gene_names, columns = unique_cell_type_labels)
-    st.table(average_expression_df)
     
     return average_expression_df, number_expression_df, totalcell_df, cell_type_specific_expressions_df, unique_cell_type_labels, cell_type_numbers
 
@@ -370,7 +369,7 @@ def plot_cell_dist(average_expression_df,
     circles = []
     for i in range(Nx):
         for j in range(Ny):
-            rad = (smaller_frac_expression_df.iloc[j, i]*100+1)/13.28
+            rad = log2(smaller_frac_expression_df.iloc[j, i]*100+1)/13.28
             col = mapper.to_rgba(average_expression_df.iloc[j, i])
             patch = pch.Circle((i+1, j+0.5), rad, fc=col, ec='black')
             text = f'{int(number_expression_df.iloc[j, i])} ({round(actual_frac_expression_df.iloc[j, i]*100, 1)}%)'
