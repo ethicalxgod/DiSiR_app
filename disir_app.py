@@ -13,7 +13,7 @@ sys.path.append(append)
 import disir_app_functions as ds
 np.random.seed(0)
 
-st.title('DiSiR')
+st.title('DSRA')
 
 col1, col2 = st.columns(2)
 
